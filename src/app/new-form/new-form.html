@@ -1,0 +1,100 @@
+<div class="container">
+  <form [formGroup]="repairForm" (ngSubmit)="onSubmit()">
+    <h2>Car Repair Form</h2>
+
+    <div class="form-group">
+      <label>Auto típus</label>
+      <input type="text" formControlName="carName" />
+    </div>
+
+    <div class="form-group">
+      <label>Rendszám</label>
+      <input type="text" formControlName="licencePlate" />
+    </div>
+
+    <div class="form-group">
+      <label>Futott Km</label>
+      <input type="number" formControlName="kmRan" />
+    </div>
+
+    <div class="form-group">
+      <label>Dátum</label>
+      <input type="date" [value]="today" disabled />
+    </div>
+
+    <div class="form-group">
+      <label>Anyag</label>
+      <textarea
+        rows="5"
+        formControlName="partsUsed"
+        (blur)="formatTextareaWithDash('partsUsed')"
+        placeholder="Minden anyagot külön sorban írj be"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <div class="switch-group">
+            <label class="switch">
+                <input type="checkbox" formControlName="partsBroughtEnabled">
+                <span class="slider"></span>
+            </label>
+            <span class="switch-text">Ügyfél hozott anyagot</span>
+
+            <label class="switch">
+                <input type="checkbox" formControlName="moreFoultsEnabled">
+                <span class="slider"></span>
+            </label>
+            <span class="switch-text">További hibák</span>
+        </div>
+        <div class="form-group mt-3" *ngIf="repairForm.get('partsBroughtEnabled')?.value">
+            <label>Hozott Anyag</label>
+            <textarea
+                rows="4"
+                formControlName="partsBrought"
+                placeholder="Minden anyagot külön sorban írj be"
+                (blur)="formatTextareaWithDash('partsBrought')"></textarea>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <div class="form-group mt-3" *ngIf="repairForm.get('moreFoultsEnabled')?.value">
+            <label>Felvélt hibák</label>
+            <textarea
+                rows="4"
+                formControlName="moreFoults"
+                placeholder="Minden hibát külön sorban írj be"
+                (blur)="formatTextareaWithDash('moreFoults')"></textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+      <label>Anyag költség</label>
+      <input type="number" formControlName="partsCost" />
+    </div>
+
+    <div class="form-group">
+      <label>Diagnosztika</label>
+      <input type="number" formControlName="diagnosticsCost" />
+    </div>
+
+    <div class="form-group">
+      <label>Műszaki vizsga</label>
+      <input type="number" formControlName="technicalExam" />
+    </div>
+
+    <div class="form-group">
+      <label>Munkadíj</label>
+      <input type="number" formControlName="wage" />
+    </div>
+
+    <div class="overall">
+      Összesen {{ overall ? overall:"" }} Ft
+    </div>
+
+    <button type="submit" [disabled]="repairForm.invalid">
+      Mentés
+    </button>
+
+  </form>
+</div>
+
+

@@ -1,9 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { NewForm } from "./new-form/new-form";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, NewForm],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
