@@ -10,4 +10,5 @@ import { NewForm } from "./new-form/new-form";
 })
 export class App {
   protected readonly title = signal('car-receipt');
+
 }
