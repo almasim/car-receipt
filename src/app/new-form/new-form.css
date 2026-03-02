@@ -4,7 +4,7 @@ body {
 }
 
 .container {
-  max-width: 600px;
+  max-width: 685px;
   margin: 40px auto;
   background: white;
   padding: 30px;
@@ -140,4 +140,24 @@ button:disabled {
 .switch-text {
   font-size: 14px;
   color: #444;
+}
+
+.save {
+  background: #27ae60;
+}
+.save:hover {
+  background: #1e8449;
+}
+
+.deleteExtraCost{
+  margin-top: 0px;
+  width: 10%;
+  background: #e74c3c;
+}
+
+.addExtraCost{
+  background: rgb(137, 184, 228);
+}
+.addExtraCost:hover{
+  background: rgb(81, 144, 202);
 }

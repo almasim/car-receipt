@@ -86,15 +86,66 @@
       <input type="number" formControlName="wage" />
     </div>
 
+    <div class="form-group madeupshit">
+       <label>Egyéb költségek</label>
+
+    <div formArrayName="extraCosts">
+      <div *ngFor="let cost of extraCosts.controls; let i = index"
+              [formGroupName]="i"
+              class="flex gap-2 mb-2 h-12">
+
+        <input
+          type="text"
+          formControlName="name"
+          placeholder="Megnevezés"
+          class="form-control"
+        />
+
+        <input
+          type="number"
+          formControlName="amount"
+          placeholder="Összeg"
+          class="form-control"
+        />
+
+        <button type="button"
+          class="deleteExtraCost"
+          (click)="removeExtraCost(i)">
+          X
+        </button>
+
+          </div>
+      </div>
+
+      <button type="button"
+              class="btn mt-2 addExtraCost"
+              (click)="addExtraCost()">
+        + Új tétel
+      </button>
+    </div>
+
     <div class="overall">
       Összesen {{ overall ? overall:"" }} Ft
     </div>
+    
 
-    <button type="submit" [disabled]="repairForm.invalid">
-      Mentés
-    </button>
+    <div class="flex gap-4">
+      <button type="submit"  (click)="generatePdf(1,repairForm)" [disabled]="repairForm.invalid">Előnézet</button>
+      <button type="submit" class="save" (click)="generatePdf(2,repairForm)" [disabled]="repairForm.invalid">Mentés
+      </button>
+    </div>
 
   </form>
+
+  <div class="mt-5">
+    <ngx-doc-viewer 
+      *ngIf="docPreview && docPreview !== ''"
+      [url]="docPreview"
+      viewer="pdf"
+      style="width:100%;height:78vh;"
+    ></ngx-doc-viewer>
+  </div>
+
 </div>
 
 
