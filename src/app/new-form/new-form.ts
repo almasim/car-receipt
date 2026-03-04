@@ -4,11 +4,12 @@ import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } fr
 import { jsPDF } from 'jspdf';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import '../../assets/fonts/OpenSans-Regular-normal.js';
+import { ThousandSeparator } from '../thousand-separator';
 
 
 @Component({
   selector: 'app-new-form',
-  imports: [ReactiveFormsModule,CommonModule,NgxDocViewerModule],
+  imports: [ReactiveFormsModule,CommonModule,NgxDocViewerModule,ThousandSeparator],
   templateUrl: './new-form.html',
   styleUrl: './new-form.css',
 })
@@ -32,6 +33,7 @@ export class NewForm {
       partsCost: [0,Validators.min(0)],
       diagnosticsCost: [0,Validators.min(0)],
       technicalExam: [0,Validators.min(0)],
+      hours: [1,[Validators.required,Validators.min(1)]],
       wage: [0,[Validators.required,Validators.min(0)]],
 
       extraCosts:this.fb.array([])
@@ -109,35 +111,74 @@ export class NewForm {
     doc.setFontSize(26);
     doc.text(`${form.get('carName')?.value}`, 20, 20, { align: 'left' });
     doc.setFontSize(22);
-    doc.text(`${form.get('date')?.value}`, 200, 20, { align: 'right' });
+    doc.text(`${new Date(form.get('date')?.value).toLocaleDateString('hu-HU')}`, 200, 20, { align: 'right' });
+    doc.text(`Rendszám: ${form.get('licencePlate')?.value}`, 20, 40, { align: 'left' });
     doc.setFontSize(16);
-    doc.text(`LicensePlate: ${form.get('licencePlate')?.value}`, 20, 40, { align: 'left' });
+
+    let yPosition = 50;
+
     if(form.get('partsUsed')?.value){
-      doc.text(`Parts used: ${form.get('partsUsed')?.value}`, 20, 50, { align: 'left' });
+      let partsString = form.get('partsUsed')?.value.split('\n').map((line: string) => `${line.trim()}`).join('\n');
+
+      doc.setFontSize(18);
+
+      //todo: if partsString is not empty, then print the header and the content, otherwise skip
+      //todo: if string is too long, then split it into multiple lines
+      doc.text(`Anyag:`, 20, yPosition, { align: 'left' });
+      doc.setFontSize(16);
+      for (let line of partsString.split('\n')) {
+        yPosition += 7;
+        doc.text(line, 25, yPosition, { align: 'left' });
+      }
+
+      yPosition += 10;
     }
+
     if(form.get('partsBroughtEnabled')?.value && form.get('partsBrought')?.value){
-      doc.text(`Parts brought by customer: ${form.get('partsBrought')?.value}`, 20, 60, { align: 'left' });
+      let partsBroughtString = form.get('partsBrought')?.value.split('\n').map((line: string) => `${line.trim()}`).join('\n');
+
+      doc.text(`Ügyfél hozta:`, 20, yPosition, { align: 'left' });
+      for (let line of partsBroughtString.split('\n')) {
+        yPosition += 7;
+        doc.text(line, 25, yPosition, { align: 'left' });
+      }
+
+      yPosition += 10;
     }
+
     if(form.get('moreFoultsEnabled')?.value && form.get('moreFoults')?.value){
-      doc.text(`More foults: ${form.get('moreFoults')?.value}`, 20, 70, { align: 'left' });
+      let moreFoultsString = form.get('moreFoults')?.value.split('\n').map((line: string) => `${line.trim()}`).join('\n');
+      
+      doc.text(`További hibák:`, 20, yPosition, { align: 'left' });
+      for (let line of moreFoultsString.split('\n')) {
+        yPosition += 7;
+        doc.text(line, 25, yPosition, { align: 'left' });
+      }
+
+      yPosition += 10;
     }
+
     if(form.get('partsCost')?.value){
-      doc.text(`Parts cost: ${this.formatPrice(form.get('partsCost')?.value)} Ft`, 20, 80, { align: 'left' });
+      doc.text(`Anyag ára: ${this.formatPrice(form.get('partsCost')?.value)} Ft`, 20, yPosition, { align: 'left' });
+
+      yPosition += 10;
     }
     if(form.get('diagnosticsCost')?.value){
-      doc.text(`Diagnostics cost: ${this.formatPrice(form.get('diagnosticsCost')?.value)} Ft`, 20, 90, { align: 'left' });
+      doc.text(`Diagnosztika: ${this.formatPrice(form.get('diagnosticsCost')?.value)} Ft`, 20, yPosition, { align: 'left' });
+      yPosition += 10;
     }
     if(form.get('technicalExam')?.value){
-      doc.text(`Technical exam: ${this.formatPrice(form.get('technicalExam')?.value)} Ft`, 20, 100, { align: 'left' });
-    }
-    doc.text(`Wage: ${this.formatPrice(form.get('wage')?.value)} Ft`, 20, 110, { align: 'left' });
-    const extraCosts = form.get('extraCosts') as FormArray;
-
-    let yPosition = 120;
-
-    if (extraCosts && extraCosts.length > 0) {
+      
+      doc.text(`Műszaki vizsga: ${this.formatPrice(form.get('technicalExam')?.value)} Ft`, 20, yPosition, { align: 'left' });
       yPosition += 10;
+    }
+    
+    doc.text(`Munkadíj (${form.get('hours')?.value} óra): ${this.formatPrice(form.get('wage')?.value)} Ft`, 20, yPosition, { align: 'left' });
 
+    yPosition += 10;
+
+    const extraCosts = form.get('extraCosts') as FormArray;
+    if (extraCosts && extraCosts.length > 0) {
       extraCosts.controls.forEach((control, index) => {
         const name = control.get('name')?.value;
         const amount = control.get('amount')?.value;
@@ -154,16 +195,13 @@ export class NewForm {
       });
     } 
     doc.setFontSize(18);
-    doc.text(`Overall: ${this.overall} Ft`, 20, yPosition);
+    doc.text(`Összesen: ${this.overall} Ft`, 20, yPosition + 10, { align: 'left' });
 
     if(id === 1){
       this.docPreview = doc.output('datauristring');
     }else{
      doc.save(`${form.get('date')?.value}-${id}car-repair-receipt.pdf`);
     }
-
-
-
   }
 
   onSubmit() {

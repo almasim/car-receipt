@@ -145,7 +145,7 @@ button:disabled {
 .save {
   background: #27ae60;
 }
-.save:hover {
+.save:hover:not(:disabled) {
   background: #1e8449;
 }
 

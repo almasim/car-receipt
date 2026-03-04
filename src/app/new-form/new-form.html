@@ -1,6 +1,6 @@
 <div class="container">
   <form [formGroup]="repairForm" (ngSubmit)="onSubmit()">
-    <h2>Car Repair Form</h2>
+    <h2>Autó javítási számla</h2>
 
     <div class="form-group">
       <label>Auto típus</label>
@@ -68,22 +68,26 @@
 
     <div class="form-group">
       <label>Anyag költség</label>
-      <input type="number" formControlName="partsCost" />
+      <input type="text" formControlName="partsCost" appThousandSeparator/>
     </div>
 
     <div class="form-group">
       <label>Diagnosztika</label>
-      <input type="number" formControlName="diagnosticsCost" />
+      <input type="text" formControlName="diagnosticsCost" appThousandSeparator/>
     </div>
 
     <div class="form-group">
       <label>Műszaki vizsga</label>
-      <input type="number" formControlName="technicalExam" />
+      <input type="text" formControlName="technicalExam" appThousandSeparator />
     </div>
 
     <div class="form-group">
       <label>Munkadíj</label>
-      <input type="number" formControlName="wage" />
+      <input type="text" formControlName="wage" appThousandSeparator />
+    </div>
+    <div class="form-group">
+      <label>Munka óra</label>
+      <input type="text" formControlName="hours" appThousandSeparator/>
     </div>
 
     <div class="form-group madeupshit">
@@ -102,10 +106,11 @@
         />
 
         <input
-          type="number"
+          type="text"
           formControlName="amount"
           placeholder="Összeg"
           class="form-control"
+          appThousandSeparator
         />
 
         <button type="button"
