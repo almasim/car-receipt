@@ -87,7 +87,7 @@
     </div>
     <div class="form-group">
       <label>Munka óra</label>
-      <input type="text" formControlName="hours" appThousandSeparator/>
+      <input type="number" formControlName="hours" /> 
     </div>
 
     <div class="form-group madeupshit">
@@ -135,8 +135,8 @@
     
 
     <div class="flex gap-4">
-      <button type="submit"  (click)="generatePdf(1,repairForm)" [disabled]="repairForm.invalid">Előnézet</button>
-      <button type="submit" class="save" (click)="generatePdf(2,repairForm)" [disabled]="repairForm.invalid">Mentés
+      <button type="button"  (click)="generatePdf(1,repairForm)" [disabled]="repairForm.invalid">Előnézet</button>
+      <button type="submit" class="save" [disabled]="repairForm.invalid">Mentés
       </button>
     </div>
 
