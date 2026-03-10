@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* @import "../node_modules/@coreui/coreui/scss/coreui"; */
 @import "tailwindcss";
 
 body.dark-mode {
@@ -33,9 +34,14 @@ body.dark-mode input {
   color: #e0e0e0;
 }
 
-
+.body.dark-mode p,button {
+  color: #ccc;
+}
 
 .body.dark-mode .overall {
   color: #ccc;
 }
 
+.body.dark-mode .cookie-popup .cookie-box {
+  background: #000000;
+}

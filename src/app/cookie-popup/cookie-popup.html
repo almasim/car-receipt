@@ -1,0 +1,12 @@
+<div class="cookie-popup" *ngIf="showPopup">
+  <div class="cookie-box">
+    <p>
+      Ez a weboldal sütiket használ a jobb felhasználói élmény érdekében.
+    </p>
+    <div class="divbuttons">
+      <button class="buttons accept" (click)="acceptCookies()">Elfogadom</button>
+      <button class="buttons reject" (click)="rejectCookies()">Elutasítom</button>
+    </div>
+
+  </div>
+</div>

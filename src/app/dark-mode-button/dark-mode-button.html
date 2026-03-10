@@ -1,7 +1,11 @@
-<div class="switch-group">
-  <label class="switch">
+<div class="theme-toggle">
+
+  <label class="theme-switch">
     <input type="checkbox" (change)="toggleDarkMode($event)" [checked]="isDarkmode === 'yes'">
-    <span class="slider"></span>
+    <span class="theme-slider">
+      <span class="icon sun">☀️</span>
+      <span class="icon moon">🌙</span>
+    </span>
   </label>
-  <span class="switch-text">Dark mode</span>
+
 </div>

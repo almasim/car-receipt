@@ -1,0 +1,45 @@
+
+.cookie-popup {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    padding: 15px;
+    z-index: 9999;
+}
+
+.cookie-box {
+    background: rgba(0,0,0,0.6);
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    text-align: center;
+}
+
+p {
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.divbuttons{
+    margin-top: 10px;
+}
+
+.buttons {
+    border: white 1px solid;
+    transition: all 0.2s ease;
+}
+.buttons:hover {
+    background: white;
+    color: black;
+}
+
+.accept{color: #d8f7db;}
+.reject{color: #f7c7c7;}
+
+button {
+  margin: 5px;
+  padding: 8px 16px;
+}
