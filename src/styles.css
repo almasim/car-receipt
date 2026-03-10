@@ -25,6 +25,10 @@ body.dark-mode input {
   color: #ccc;
 }
 
+.body.dark-mode textarea::placeholder {
+  color: #888;
+}
+
 :host-context(.dark-mode) label {
   color: #e0e0e0;
 }

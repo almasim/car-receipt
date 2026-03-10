@@ -33,6 +33,9 @@ h2 {
   color: #ccc;
 }
 
+:host-context(.dark-mode) .overall {
+  color: white;
+}
 
 
 label {
