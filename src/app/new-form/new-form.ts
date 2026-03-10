@@ -20,6 +20,7 @@ export class NewForm {
   docPreview: string = '';
 
   constructor(private fb: FormBuilder) {
+    
     this.repairForm = this.fb.group({
       carName: ['',Validators.required],
       date: [this.today,Validators.required],
@@ -236,6 +237,7 @@ export class NewForm {
     doc.text(`${form.get('carName')?.value}`, 20, 20, { align: 'left' });
     doc.text(`${new Date(form.get('date')?.value).toLocaleDateString('hu-HU')}`, 200, 20, { align: 'right' });
     doc.text(`${form.get('licencePlate')?.value}`, 20, 35, { align: 'left' });
+    doc.text(`${form.get('kmRan')?.value} km`, 200, 35, { align: 'right' });
     doc.setFontSize(16);
 
     let yPosition = 50;

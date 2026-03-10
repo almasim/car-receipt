@@ -1,3 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "tailwindcss";
+
+body.dark-mode {
+  background: #121212;
+  color: white;
+}
+
+.body.dark-mode h1,h2,h3,h4,h5,h6 {
+  color: white;
+}
+
+body.dark-mode .container {
+  background: #1e1e1e;
+}
+
+body.dark-mode input {
+  background: #1e1e1e;
+  color: white;
+}
+
+.body.dark-mode textarea {
+  background: #1e1e1e;
+  color: #ccc;
+}
+
+:host-context(.dark-mode) label {
+  color: #e0e0e0;
+}
+
+
+
+.body.dark-mode .overall {
+  color: #ccc;
+}
+

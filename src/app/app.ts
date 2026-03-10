@@ -1,14 +1,14 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NewForm } from "./new-form/new-form";
+import { DarkModeButton } from './dark-mode-button/dark-mode-button';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NewForm],
+  imports: [RouterOutlet, NewForm, DarkModeButton],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
   protected readonly title = signal('car-receipt');
-
 }

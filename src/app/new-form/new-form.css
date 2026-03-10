@@ -16,7 +16,7 @@ h2 {
   margin-bottom: 20px;
   text-align: center;
   font-weight: 600;
-  color: #333;
+  color: inherit;
 }
 
 .form-group {
@@ -25,11 +25,20 @@ h2 {
   margin-bottom: 18px;
 }
 
+:host-context(.dark-mode) span {
+  color: #ccc;
+}
+
+:host-context(.dark-mode) label {
+  color: #ccc;
+}
+
+
+
 label {
   margin-bottom: 6px;
   font-size: 14px;
   font-weight: 500;
-  color: #555;
 }
 
 input, textarea {
@@ -139,7 +148,6 @@ button:disabled {
 /* LABEL TEXT */
 .switch-text {
   font-size: 14px;
-  color: #444;
 }
 
 .save {
@@ -148,6 +156,7 @@ button:disabled {
 .save:hover:not(:disabled) {
   background: #1e8449;
 }
+
 
 .deleteExtraCost{
   margin-top: 0px;
